@@ -18,7 +18,7 @@
             </div>
         </div>
         <div class="card-body">
-            @include('admin.partials.alerts')
+            @include('admin.components.alert')
 
             <div class="d-flex flex-wrap gap-2 mb-3">
                 <a href="{{ route('dokter.create') }}" class="btn btn-sm btn-primary">
