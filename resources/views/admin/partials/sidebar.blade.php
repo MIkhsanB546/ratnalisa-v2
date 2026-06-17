@@ -58,6 +58,11 @@
                         <p>Dokter</p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('pendaftaran.index') }}" class="nav-link">
+                        <i class="nav-icon bi bi-person"></i>
+                        <p>Pendaftaran</p>
+                    </a>
                 </li>
 
             </ul>
