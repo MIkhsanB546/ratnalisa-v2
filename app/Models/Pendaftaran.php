@@ -22,6 +22,7 @@ class Pendaftaran extends Model
         'id_pendaftaran',
         'id_pasien',
         'id_dokter',
+        'jenis_kunjungan',
         'tanggal_daftar',
         'jadwal_periksa',
         'status',
@@ -38,7 +39,7 @@ class Pendaftaran extends Model
                 return;
             }
 
-            $prefix = $pendaftaran->jenis_kunjungan ?? 'KB';
+            $prefix = $pendaftaran->jenis_kunjungan ?? 'PS';
 
             $date = Carbon::parse($pendaftaran->tanggal_daftar ?? now())->format('ymd');
 

@@ -8,6 +8,7 @@ use App\Http\Controllers\KategoriLayananController;
 use App\Http\Controllers\LayananController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DokterController;
+use App\Http\Controllers\PendaftaranController;
 
 Route::get('/login', function () {
     return view('auth.login');
@@ -47,5 +48,6 @@ Route::prefix('admin')->group(function () {
         Route::resource('kategori-layanan', KategoriLayananController::class);
         Route::resource('layanan', LayananController::class);
         Route::resource('dokter', DokterController::class);
+        Route::resource('pendaftaran', PendaftaranController::class);
     });
 });

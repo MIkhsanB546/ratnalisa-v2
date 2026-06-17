@@ -2,64 +2,109 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PendaftaranRequest;
+use App\Models\Dokter;
+use App\Models\Pasien;
 use App\Models\Pendaftaran;
-use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 
 class PendaftaranController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function index(): View
     {
-        //
+        $pendaftaran = Pendaftaran::with([
+            'pasien',
+            'dokter'
+        ])
+            ->latest()
+            ->get();
+
+        return view(
+            'admin.pendaftaran.index',
+            compact('pendaftaran')
+        );
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function create(): View
     {
-        //
+        return view(
+            'admin.pendaftaran.create',
+            [
+                'pasien' => Pasien::orderBy('nama')->get(),
+                'dokter' => Dokter::orderBy('nama')->get(),
+            ]
+        );
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
+    public function store(
+        PendaftaranRequest $request
+    ): RedirectResponse {
+
+        Pendaftaran::create(
+            $request->validated()
+        );
+
+        return redirect()
+            ->route('pendaftaran.index')
+            ->with(
+                'success',
+                'Data pendaftaran berhasil ditambahkan.'
+            );
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Pendaftaran $pendaftaran)
-    {
-        //
+    public function edit(
+        Pendaftaran $pendaftaran
+    ): View {
+
+        return view(
+            'admin.pendaftaran.edit',
+            [
+                'pendaftaran' => $pendaftaran,
+                'pasien' => Pasien::orderBy('nama')->get(),
+                'dokter' => Dokter::orderBy('nama')->get(),
+            ]
+        );
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Pendaftaran $pendaftaran)
-    {
-        //
+    public function update(
+        PendaftaranRequest $request,
+        Pendaftaran $pendaftaran
+    ): RedirectResponse {
+
+        $pendaftaran->update(
+            $request->validated()
+        );
+
+        return redirect()
+            ->route('pendaftaran.index')
+            ->with(
+                'success',
+                'Data pendaftaran berhasil diperbarui.'
+            );
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Pendaftaran $pendaftaran)
-    {
-        //
-    }
+    public function destroy(
+        Pendaftaran $pendaftaran
+    ): RedirectResponse {
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Pendaftaran $pendaftaran)
-    {
-        //
+        if ($pendaftaran->pembayaran()->exists()) {
+
+            return redirect()
+                ->route('pendaftaran.index')
+                ->with(
+                    'error',
+                    'Pendaftaran tidak dapat dihapus karena sudah memiliki pembayaran.'
+                );
+        }
+
+        $pendaftaran->delete();
+
+        return redirect()
+            ->route('pendaftaran.index')
+            ->with(
+                'success',
+                'Data pendaftaran berhasil dihapus.'
+            );
     }
 }
