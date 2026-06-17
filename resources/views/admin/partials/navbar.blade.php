@@ -65,17 +65,17 @@
             <!--begin::User Menu Dropdown-->
             <li class="nav-item dropdown user-menu">
                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                    <img src="{{ asset('img/img-default.jpg') }}" class="user-image rounded-circle shadow"
+                    <img src="{{ asset('adminlte/img/img-default.jpg') }}" class="user-image rounded-circle shadow"
                         alt="User Image" />
-                    <span class="d-none d-md-inline">Alexander Pierce</span>
+                    <span class="d-none d-md-inline">{{ session('petugas_nama') }}</span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
                     <!--begin::User Image-->
                     <li class="user-header text-bg-primary">
-                        <img src="{{ asset('img/img-default.jpg') }}" class="rounded-circle shadow" alt="User Image" />
+                        <img src="{{ asset('adminlte/img/img-default.jpg') }}" class="rounded-circle shadow"
+                            alt="User Image" />
                         <p>
-                            Alexander Pierce - Web Developer
-                            <small>Member since Nov. 2023</small>
+                            {{ session('petugas_nama') }} - {{ session('petugas_role') }}
                         </p>
                     </li>
                     <!--end::User Image-->
@@ -98,8 +98,14 @@
                     <!--end::Menu Body-->
                     <!--begin::Menu Footer-->
                     <li class="user-footer">
-                        <a href="#" class="btn btn-outline-secondary">Profile</a>
-                        <a href="#" class="btn btn-outline-danger float-end">Sign out</a>
+                        {{-- <a href="#" class="btn btn-outline-secondary">Profile</a> --}}
+                        {{-- <a href="{{ route('admin.logout') }}" class="btn btn-outline-danger float-end">Sign out</a> --}}
+                        <form action="{{ route('admin.logout') }}" method="POST" class="d-inline">
+                            @csrf
+                            <button type="submit" class="btn btn-outline-danger float-end">
+                                Sign out
+                            </button>
+                        </form>
                     </li>
                     <!--end::Menu Footer-->
                 </ul>

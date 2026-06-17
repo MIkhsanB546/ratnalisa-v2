@@ -4,7 +4,8 @@
         <!--begin::Brand Link-->
         <a href="./index.html" class="brand-link">
             <!--begin::Brand Image-->
-            <img src="{{ asset('img/ratnalisa-logo.png') }}" alt="AdminLTE Logo" class="brand-image opacity-75 shadow" />
+            <img src="{{ asset('adminlte/img/ratnalisa-logo.png') }}" alt="Logo"
+                class="brand-image opacity-75 shadow" />
             <!--end::Brand Image-->
             <!--begin::Brand Text-->
             {{-- <span class="brand-text fw-light">AdminLTE 4</span> --}}
@@ -21,7 +22,7 @@
                 aria-label="Main navigation" data-accordion="false" id="navigation">
 
                 <li class="nav-item">
-                    <a href="../generate/theme.html" class="nav-link">
+                    <a href="{{ route('admin.dashboard') }}" class="nav-link">
                         <i class="nav-icon bi bi-speedometer"></i>
                         <p>Dashboard</p>
                     </a>
@@ -33,7 +34,7 @@
                         <p>Pasien</p>
                     </a>
                 </li>
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a href="{{ route('kategori-layanan.index') }}" class="nav-link">
                         <i class="nav-icon bi bi-list"></i>
                         <p>Kategori Layanan</p>
@@ -44,10 +45,10 @@
                         <i class="nav-icon bi bi-list"></i>
                         <p>Layanan</p>
                     </a>
-                </li>
+                </li> --}}
                 <li class="nav-item">
                     <a href="{{ route('petugas.index') }}" class="nav-link">
-                        <i class="nav-icon bi bi-list"></i>
+                        <i class="nav-icon bi bi-person"></i>
                         <p>Petugas</p>
                     </a>
                 </li>

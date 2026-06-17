@@ -26,18 +26,23 @@ class LoginController extends Controller
         $petugas = Petugas::where('username', $request->input('username'))->first();
 
         if (!$petugas || !Hash::check($request->input('password'), $petugas->password)) {
-            return redirect()->back()->withInput()->with('error', 'Username atau password salah.');
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'Username atau password salah.');
         }
 
         Session::put('petugas_id', $petugas->id_petugas);
         Session::put('petugas_username', $petugas->username);
+        Session::put('petugas_role', $petugas->role);
+        Session::put('petugas_nama', $petugas->nama);
+
+        $request->session()->regenerate();
 
         return redirect()->route('admin.dashboard');
     }
 
     public function logout(Request $request): RedirectResponse
     {
-        $request->session()->forget(['petugas_id', 'petugas_username']);
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 

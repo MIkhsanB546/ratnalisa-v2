@@ -2,6 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BerandaController;
+use App\Http\Controllers\PetugasController;
+use App\Http\Controllers\PasienController;
+use App\Http\Controllers\KategoriLayananController;
+use App\Http\Controllers\LayananController;
+use App\Http\Controllers\LoginController;
 
 Route::get('/login', function () {
     return view('auth.login');
@@ -11,10 +16,34 @@ Route::get('/register', function () {
     return view('auth.register');
 })->name('register');
 
-Route::get('/', [BerandaController::class, 'index'])->name('beranda');
-Route::get('/tentang', [BerandaController::class, 'tentang'])->name('tentang');
-Route::get('/kontak', [BerandaController::class, 'kontak'])->name('kontak');
-Route::get('/layanan', [BerandaController::class, 'layanan'])->name('layanan');
-Route::get('/detail-layanan', [BerandaController::class, 'detail_layanan'])->name('detail_layanan');
-Route::get('/privacy', [BerandaController::class, 'privacy'])->name('privacy');
-Route::get('/terms', [BerandaController::class, 'terms'])->name('terms');
+Route::controller(BerandaController::class)->group(function () {
+    Route::get('/', 'index')->name('beranda');
+    Route::get('/tentang', 'tentang')->name('tentang');
+    Route::get('/kontak', 'kontak')->name('kontak');
+    Route::get('/layanan', 'layanan')->name('layanan');
+    Route::get('/detail-layanan', 'detail_layanan')->name('detail_layanan');
+    Route::get('/privacy', 'privacy')->name('privacy');
+    Route::get('/terms', 'terms')->name('terms');
+});
+
+Route::prefix('admin')->group(function () {
+    Route::get('/login', [LoginController::class, 'showLogin'])
+        ->name('admin.login');
+
+    Route::post('/login', [LoginController::class, 'login'])
+        ->name('admin.login.post');
+
+    Route::post('/logout', [LoginController::class, 'logout'])
+        ->name('admin.logout');
+
+    Route::middleware(['petugas.auth'])->group(function () {
+        Route::get('/dashboard', function () {
+            return view('admin.dashboard');
+        })->name('admin.dashboard');
+
+        Route::resource('petugas', PetugasController::class);
+        Route::resource('pasien', PasienController::class);
+        Route::resource('kategori-layanan', KategoriLayananController::class);
+        Route::resource('layanan', LayananController::class);
+    });
+});
