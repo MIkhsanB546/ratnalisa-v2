@@ -23,8 +23,10 @@ class PendaftaranFactory extends Factory
         $tanggalDaftar = fake()->dateTimeBetween('-30 days', '+7 days');
         $jadwalPeriksa = (clone $tanggalDaftar)->modify('+' . fake()->numberBetween(1, 5) . ' days');
 
+
         return [
             'id_pasien' => Pasien::factory(),
+            'jenis_kunjungan' => fake()->randomElement(['PS', 'PD']),
             'tanggal_daftar' => $tanggalDaftar->format('Y-m-d'),
             'jadwal_periksa' => $jadwalPeriksa->format('Y-m-d H:i:s'),
             'status' => fake()->randomElement(['menunggu', 'dijadwalkan', 'selesai', 'batal']),
@@ -34,28 +36,28 @@ class PendaftaranFactory extends Factory
 
     public function menunggu(): static
     {
-        return $this->state(fn (array $attributes): array => [
+        return $this->state(fn(array $attributes): array => [
             'status' => 'menunggu',
         ]);
     }
 
     public function dijadwalkan(): static
     {
-        return $this->state(fn (array $attributes): array => [
+        return $this->state(fn(array $attributes): array => [
             'status' => 'dijadwalkan',
         ]);
     }
 
     public function selesai(): static
     {
-        return $this->state(fn (array $attributes): array => [
+        return $this->state(fn(array $attributes): array => [
             'status' => 'selesai',
         ]);
     }
 
     public function batal(): static
     {
-        return $this->state(fn (array $attributes): array => [
+        return $this->state(fn(array $attributes): array => [
             'status' => 'batal',
         ]);
     }
