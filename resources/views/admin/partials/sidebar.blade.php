@@ -52,6 +52,12 @@
                         <p>Petugas</p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('dokter.index') }}" class="nav-link">
+                        <i class="nav-icon bi bi-person"></i>
+                        <p>Dokter</p>
+                    </a>
+                </li>
                 </li>
 
             </ul>

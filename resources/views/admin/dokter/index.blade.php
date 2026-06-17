@@ -1,23 +1,22 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Petugas')
-@section('page-title', 'Petugas')
+@section('title', 'Dokter')
+@section('page-title', 'Dokter')
 
 @section('content')
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Data Petugas</h3>
+            <h3 class="card-title">Data Dokter</h3>
             <div class="card-tools">
                 <div class="input-group input-group-sm" style="width: 16rem">
                     <span class="input-group-text">
                         <i class="bi bi-search" aria-hidden="true"></i>
                     </span>
-                    <input id="table-filter" type="search" class="form-control" placeholder="Cari petugas..."
-                        aria-label="Cari petugas" />
+                    <input id="table-filter" type="search" class="form-control" placeholder="Cari dokter..."
+                        aria-label="Cari dokter" />
                 </div>
             </div>
         </div>
-
         <div class="card-body">
             @if (session('success'))
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -34,11 +33,10 @@
             @endif
 
             <div class="d-flex flex-wrap gap-2 mb-3">
-                <a href="{{ route('petugas.create') }}" class="btn btn-sm btn-primary">
+                <a href="{{ route('dokter.create') }}" class="btn btn-sm btn-primary">
                     <i class="bi bi-plus-lg me-1" aria-hidden="true"></i>
-                    Tambah Petugas
+                    Tambah Dokter
                 </a>
-
                 <button id="export-csv" type="button" class="btn btn-sm btn-outline-secondary">
                     <i class="bi bi-filetype-csv me-1" aria-hidden="true"></i>
                     Export CSV
@@ -52,47 +50,49 @@
                     Print
                 </button>
             </div>
-
             <div id="users-table" class="table-responsive">
-                <table class="table table-bordered table-striped table-hover align-middle mb-0" id="petugas-table">
+                <table class="table table-bordered table-striped table-hover align-middle mb-0" id="dokter-table">
                     <thead class="table-light">
                         <tr>
                             <th scope="col" style="width: 3rem">No</th>
-                            <th scope="col">ID Petugas</th>
+                            <th scope="col">ID Dokter</th>
                             <th scope="col">Nama</th>
-                            <th scope="col">Username</th>
-                            <th scope="col">Role</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Spesialisasi</th>
+                            <th scope="col">No. HP</th>
                             <th scope="col" style="width: 6rem">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($petugas as $item)
+                        @forelse ($dokters as $dokter)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $item->id_petugas }}</td>
-                                <td>{{ $item->nama }}</td>
-                                <td>{{ $item->username }}</td>
-                                <td>{{ $item->role }}</td>
+                                <td>{{ $dokter->id_dokter }}</td>
+                                <td>{{ $dokter->nama }}</td>
+                                <td>{{ $dokter->email }}</td>
+                                <td>{{ $dokter->spesialisasi }}</td>
+                                <td>{{ $dokter->no_hp }}</td>
                                 <td>
-                                    <a href="{{ route('petugas.edit', $item) }}" class="btn btn-sm btn-warning">
-                                        <i class="bi bi-pencil-square" aria-hidden="true"></i>
-                                        <span class="visually-hidden">Edit</span>
+                                    <a href="{{ route('dokter.edit', $dokter) }}" class="btn btn-sm btn-warning">
+                                        <i class="bi bi-pencil-square"></i>
                                     </a>
-                                    <form action="{{ route('petugas.destroy', $item) }}" method="POST" class="d-inline"
-                                        onsubmit="return confirm('Apakah Anda yakin ingin menghapus petugas ini?');">
+
+                                    <form action="{{ route('dokter.destroy', $dokter) }}" method="POST" class="d-inline"
+                                        onsubmit="return confirm('Apakah Anda yakin ingin menghapus dokter ini?');">
+
                                         @csrf
                                         @method('DELETE')
+
                                         <button type="submit" class="btn btn-sm btn-danger">
-                                            <i class="bi bi-trash" aria-hidden="true"></i>
-                                            <span class="visually-hidden">Hapus</span>
+                                            <i class="bi bi-trash"></i>
                                         </button>
                                     </form>
                                 </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="6" class="text-center text-muted py-4">
-                                    Belum ada data petugas.
+                                <td colspan="7" class="text-center text-muted py-4">
+                                    Belum ada data dokter.
                                 </td>
                             </tr>
                         @endforelse
@@ -106,7 +106,7 @@
 @push('scripts')
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const table = document.getElementById('petugas-table');
+            const table = document.getElementById('dokter-table');
             const filter = document.getElementById('table-filter');
             const csvButton = document.getElementById('export-csv');
             const jsonButton = document.getElementById('export-json');
@@ -151,20 +151,20 @@
 
             csvButton?.addEventListener('click', () => {
                 const rows = [getHeaders(), ...getRowData()];
-                const csv = rows
-                    .map((row) => row.map((value) => `"${value.replace(/"/g, '""')}"`).join(','))
-                    .join('\n');
+                const csv = rows.map((row) => row.map((value) => `"${value.replace(/"/g, '""')}"`).join(
+                    ',')).join('\n');
 
-                downloadFile('data-petugas.csv', csv, 'text/csv;charset=utf-8;');
+                downloadFile('data-dokter.csv', csv, 'text/csv;charset=utf-8;');
             });
 
             jsonButton?.addEventListener('click', () => {
                 const headers = getHeaders();
-                const data = getRowData().map((row) =>
-                    Object.fromEntries(headers.map((header, index) => [header, row[index] ?? '']))
-                );
+                const data = getRowData().map((row) => Object.fromEntries(headers.map((header, index) => [
+                    header,
+                    row[index] ?? ''
+                ])));
 
-                downloadFile('data-petugas.json', JSON.stringify(data, null, 2),
+                downloadFile('data-dokter.json', JSON.stringify(data, null, 2),
                     'application/json;charset=utf-8;');
             });
 
