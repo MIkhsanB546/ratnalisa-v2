@@ -18,19 +18,7 @@
             </div>
         </div>
         <div class="card-body">
-            @if (session('success'))
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    {{ session('success') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Tutup"></button>
-                </div>
-            @endif
-            @if (session('error'))
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    {{ session('error') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Tutup">
-                    </button>
-                </div>
-            @endif
+            @include('admin.partials.alerts')
 
             <div class="d-flex flex-wrap gap-2 mb-3">
                 <a href="{{ route('pasien.create') }}" class="btn btn-sm btn-primary">
