@@ -29,13 +29,13 @@ Route::controller(BerandaController::class)->group(function () {
 });
 
 Route::prefix('admin')->group(function () {
-    Route::get('/login', [LoginController::class, 'showLogin'])
+    Route::get('/login', [LoginController::class, 'loginAdmin'])
         ->name('admin.login');
 
-    Route::post('/login', [LoginController::class, 'login'])
-        ->name('admin.login.post');
+    Route::post('/login', [LoginController::class, 'authenticateAdmin'])
+        ->name('admin.login');
 
-    Route::post('/logout', [LoginController::class, 'logout'])
+    Route::post('/logout', [LoginController::class, 'logoutAdmin'])
         ->name('admin.logout');
 
     Route::middleware(['petugas.auth'])->group(function () {
