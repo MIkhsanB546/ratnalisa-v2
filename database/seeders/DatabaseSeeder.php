@@ -146,12 +146,11 @@ class DatabaseSeeder extends Seeder
                         $layananAktif
                     ): void {
 
-                        $selectedLayanan = $layananAktif->random(
-                            fake()->numberBetween(
-                                1,
-                                min(
-                                    5,
-                                    $layananAktif->count()
+                        $selectedLayanan = collect(
+                            $layananAktif->random(
+                                fake()->numberBetween(
+                                    1,
+                                    min(5, $layananAktif->count())
                                 )
                             )
                         );

@@ -27,19 +27,23 @@ class DetailPendaftaran extends Model
 
         static::creating(function ($detail) {
 
-            $last = self::orderBy(
-                'id_detail',
-                'desc'
-            )
+            if (!empty($detail->id_detail)) {
+                return;
+            }
+
+            $prefix = $detail->id_pendaftaran;
+
+            $last = self::where('id_pendaftaran', $detail->id_pendaftaran)
+                ->orderBy('id_detail', 'desc')
                 ->first();
 
             $nextNumber = $last
-                ? ((int) substr($last->id_detail, 1)) + 1
+                ? ((int) substr($last->id_detail, -2)) + 1
                 : 1;
 
             $detail->id_detail =
-                'D' .
-                str_pad($nextNumber, 4, '0', STR_PAD_LEFT);
+                $prefix .
+                str_pad($nextNumber, 2, '0', STR_PAD_LEFT);
         });
     }
 
