@@ -140,47 +140,37 @@
                                 </td>
 
                                 <td>
+                                    <a href="{{ route('detail-pendaftaran.index', $item) }}"class="btn btn-sm btn-info">
+                                        <i class="bi bi-list-ul"></i>
+                                    </a>
 
                                     <a href="{{ route('pendaftaran.edit', $item) }}" class="btn btn-sm btn-warning">
-
                                         <i class="bi bi-pencil-square"></i>
                                     </a>
 
                                     <form action="{{ route('pendaftaran.destroy', $item) }}" method="POST" class="d-inline"
                                         onsubmit="return confirm('Yakin ingin menghapus data ini?');">
-
                                         @csrf
                                         @method('DELETE')
 
                                         <button type="submit" class="btn btn-sm btn-danger">
-
                                             <i class="bi bi-trash"></i>
                                         </button>
-
                                     </form>
-
                                 </td>
-
                             </tr>
 
                             @empty
-
                                 <tr>
                                     <td colspan="9" class="text-center text-muted py-4">
-
                                         Belum ada data pendaftaran.
                                     </td>
                                 </tr>
                             @endforelse
-
                         </tbody>
-
                     </table>
-
                 </div>
-
             </div>
-
         </div>
     @endsection
 
