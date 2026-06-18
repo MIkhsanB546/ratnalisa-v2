@@ -11,12 +11,12 @@ use Illuminate\View\View;
 
 class LoginController extends Controller
 {
-    public function showLogin(): View
+    public function loginAdmin(): View
     {
         return view('admin.auth.login');
     }
 
-    public function login(Request $request): RedirectResponse
+    public function authenticateAdmin(Request $request): RedirectResponse
     {
         $request->validate([
             'username' => ['required', 'string'],
@@ -41,7 +41,7 @@ class LoginController extends Controller
         return redirect()->route('admin.dashboard');
     }
 
-    public function logout(Request $request): RedirectResponse
+    public function logoutAdmin(Request $request): RedirectResponse
     {
         $request->session()->invalidate();
         $request->session()->regenerateToken();
