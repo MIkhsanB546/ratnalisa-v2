@@ -2,6 +2,23 @@
 
 @section('title', 'Tambah Dokter')
 @section('page-title', 'Tambah Dokter')
+@section('breadcrumb')
+    <li class="breadcrumb-item">
+        <a href="{{ route('admin.dashboard') }}">
+            Dashboard
+        </a>
+    </li>
+
+    <li class="breadcrumb-item">
+        <a href="{{ route('dokter.index') }}">
+            Dokter
+        </a>
+    </li>
+
+    <li class="breadcrumb-item active">
+        Tambah Dokter
+    </li>
+@endsection
 
 @section('content')
     <div class="card">
