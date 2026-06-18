@@ -9,6 +9,7 @@ use App\Http\Controllers\LayananController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DokterController;
 use App\Http\Controllers\PendaftaranController;
+use App\Http\Controllers\DetailPendaftaranController;
 
 Route::get('/login', function () {
     return view('auth.login');
@@ -49,5 +50,24 @@ Route::prefix('admin')->group(function () {
         Route::resource('layanan', LayananController::class);
         Route::resource('dokter', DokterController::class);
         Route::resource('pendaftaran', PendaftaranController::class);
+        Route::get(
+            'pendaftaran/{pendaftaran}/detail',
+            [DetailPendaftaranController::class, 'index']
+        )->name('detail-pendaftaran.index');
+
+        Route::get(
+            'pendaftaran/{pendaftaran}/detail/create',
+            [DetailPendaftaranController::class, 'create']
+        )->name('detail-pendaftaran.create');
+
+        Route::post(
+            'pendaftaran/{pendaftaran}/detail',
+            [DetailPendaftaranController::class, 'store']
+        )->name('detail-pendaftaran.store');
+
+        Route::delete(
+            'detail-pendaftaran/{detailPendaftaran}',
+            [DetailPendaftaranController::class, 'destroy']
+        )->name('detail-pendaftaran.destroy');
     });
 });
