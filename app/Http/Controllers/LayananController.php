@@ -43,7 +43,7 @@ class LayananController extends Controller
         Layanan::create($data);
 
         return redirect()
-            ->route('layanan.index')
+            ->route('admin.layanan.index')
             ->with('success', 'Data layanan berhasil ditambahkan.');
     }
 
@@ -73,7 +73,7 @@ class LayananController extends Controller
         $layanan->update($data);
 
         return redirect()
-            ->route('layanan.index')
+            ->route('admin.layanan.index')
             ->with('success', 'Data layanan berhasil diperbarui.');
     }
 
@@ -85,7 +85,7 @@ class LayananController extends Controller
         $layanan->delete();
 
         return redirect()
-            ->route('layanan.index')
+            ->route('admin.layanan.index')
             ->with('success', 'Data layanan berhasil dihapus.');
     }
 }

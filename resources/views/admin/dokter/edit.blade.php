@@ -8,7 +8,7 @@
         <div class="card-header">
             <h3 class="card-title">Form Edit Dokter</h3>
         </div>
-        <form action="{{ route('dokter.update', $dokter) }}" method="POST">
+        <form action="{{ route('admin.dokter.update', $dokter) }}" method="POST">
 
             @csrf
             @method('PUT')
@@ -92,7 +92,7 @@
             </div>
 
             <div class="card-footer d-flex justify-content-end gap-2">
-                <a href="{{ route('dokter.index') }}" class="btn btn-secondary">
+                <a href="{{ route('admin.dokter.index') }}" class="btn btn-secondary">
                     Kembali
                 </a>
 

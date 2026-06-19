@@ -22,7 +22,7 @@
             @include('admin.components.alert')
 
             <div class="d-flex flex-wrap gap-2 mb-3">
-                <a href="{{ route('petugas.create') }}" class="btn btn-sm btn-primary">
+                <a href="{{ route('admin.petugas.create') }}" class="btn btn-sm btn-primary">
                     <i class="bi bi-plus-lg me-1" aria-hidden="true"></i>
                     Tambah Petugas
                 </a>
@@ -62,11 +62,12 @@
                                 <td>{{ $item->username }}</td>
                                 <td>{{ $item->role }}</td>
                                 <td>
-                                    <a href="{{ route('petugas.edit', $item) }}" class="btn btn-sm btn-warning">
+                                    <a href="{{ route('admin.petugas.edit', $item) }}" class="btn btn-sm btn-warning">
                                         <i class="bi bi-pencil-square" aria-hidden="true"></i>
                                         <span class="visually-hidden">Edit</span>
                                     </a>
-                                    <form action="{{ route('petugas.destroy', $item) }}" method="POST" class="d-inline"
+                                    <form action="{{ route('admin.petugas.destroy', $item) }}" method="POST"
+                                        class="d-inline"
                                         onsubmit="return confirm('Apakah Anda yakin ingin menghapus petugas ini?');">
                                         @csrf
                                         @method('DELETE')

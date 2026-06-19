@@ -38,7 +38,7 @@ class PetugasController extends Controller
         Petugas::create($data);
 
         return redirect()
-            ->route('petugas.index')
+            ->route('admin.petugas.index')
             ->with('success', 'Data petugas berhasil ditambahkan.');
     }
 
@@ -74,7 +74,7 @@ class PetugasController extends Controller
         $petugas->update($data);
 
         return redirect()
-            ->route('petugas.index')
+            ->route('admin.petugas.index')
             ->with('success', 'Data petugas berhasil diperbarui.');
     }
 
@@ -86,7 +86,7 @@ class PetugasController extends Controller
         $petugas->delete();
 
         return redirect()
-            ->route('petugas.index')
+            ->route('admin.petugas.index')
             ->with('success', 'Data petugas berhasil dihapus.');
     }
 }

@@ -32,7 +32,7 @@
             @include('admin.components.alert')
 
             <div class="d-flex flex-wrap gap-2 mb-3">
-                <a href="{{ route('dokter.create') }}" class="btn btn-sm btn-primary">
+                <a href="{{ route('admin.dokter.create') }}" class="btn btn-sm btn-primary">
                     <i class="bi bi-plus-lg me-1" aria-hidden="true"></i>
                     Tambah Dokter
                 </a>
@@ -72,11 +72,12 @@
                                 <td>{{ $dokter->spesialisasi }}</td>
                                 <td>{{ $dokter->no_hp }}</td>
                                 <td>
-                                    <a href="{{ route('dokter.edit', $dokter) }}" class="btn btn-sm btn-warning">
+                                    <a href="{{ route('admin.dokter.edit', $dokter) }}" class="btn btn-sm btn-warning">
                                         <i class="bi bi-pencil-square"></i>
                                     </a>
 
-                                    <form action="{{ route('dokter.destroy', $dokter) }}" method="POST" class="d-inline"
+                                    <form action="{{ route('admin.dokter.destroy', $dokter) }}" method="POST"
+                                        class="d-inline"
                                         onsubmit="return confirm('Apakah Anda yakin ingin menghapus dokter ini?');">
 
                                         @csrf

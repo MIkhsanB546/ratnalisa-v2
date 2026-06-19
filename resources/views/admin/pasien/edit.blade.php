@@ -8,7 +8,7 @@
         <div class="card-header">
             <h3 class="card-title">Form Edit Pasien</h3>
         </div>
-        <form action="{{ route('pasien.update', $pasien) }}" method="POST">
+        <form action="{{ route('admin.pasien.update', $pasien) }}" method="POST">
             @csrf
             @method('PUT')
 
@@ -16,8 +16,7 @@
                 <div class="row g-3">
                     <div class="col-md-6">
                         <label for="id_pasien" class="form-label">ID Pasien</label>
-                        <input type="text" id="id_pasien" class="form-control" value="{{ $pasien->id_pasien }}"
-                            disabled>
+                        <input type="text" id="id_pasien" class="form-control" value="{{ $pasien->id_pasien }}" disabled>
                     </div>
 
                     <div class="col-md-6">
@@ -62,8 +61,8 @@
 
                     <div class="col-md-6">
                         <label for="password_confirmation" class="form-label">Konfirmasi Password Baru</label>
-                        <input type="password" name="password_confirmation" id="password_confirmation"
-                            class="form-control" minlength="8">
+                        <input type="password" name="password_confirmation" id="password_confirmation" class="form-control"
+                            minlength="8">
                     </div>
 
                     <div class="col-md-6">
@@ -101,7 +100,7 @@
             </div>
 
             <div class="card-footer d-flex justify-content-end gap-2">
-                <a href="{{ route('pasien.index') }}" class="btn btn-secondary">
+                <a href="{{ route('admin.pasien.index') }}" class="btn btn-secondary">
                     <i class="bi bi-arrow-left me-1" aria-hidden="true"></i>
                     Kembali
                 </a>

@@ -29,37 +29,37 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{ route('pasien.index') }}" class="nav-link">
+                    <a href="{{ route('admin.pasien.index') }}" class="nav-link">
                         <i class="nav-icon bi bi-person"></i>
                         <p>Pasien</p>
                     </a>
                 </li>
                 {{-- <li class="nav-item">
-                    <a href="{{ route('kategori-layanan.index') }}" class="nav-link">
+                    <a href="{{ route('admin.kategori-layanan.index') }}" class="nav-link">
                         <i class="nav-icon bi bi-list"></i>
                         <p>Kategori Layanan</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('layanan.index') }}" class="nav-link">
+                    <a href="{{ route('admin.layanan.index') }}" class="nav-link">
                         <i class="nav-icon bi bi-list"></i>
                         <p>Layanan</p>
                     </a>
                 </li> --}}
                 <li class="nav-item">
-                    <a href="{{ route('petugas.index') }}" class="nav-link">
+                    <a href="{{ route('admin.petugas.index') }}" class="nav-link">
                         <i class="nav-icon bi bi-person"></i>
                         <p>Petugas</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('dokter.index') }}" class="nav-link">
+                    <a href="{{ route('admin.dokter.index') }}" class="nav-link">
                         <i class="nav-icon bi bi-person"></i>
                         <p>Dokter</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('pendaftaran.index') }}" class="nav-link">
+                    <a href="{{ route('admin.pendaftaran.index') }}" class="nav-link">
                         <i class="nav-icon bi bi-person"></i>
                         <p>Pendaftaran</p>
                     </a>

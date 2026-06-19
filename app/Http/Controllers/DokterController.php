@@ -26,7 +26,7 @@ class DokterController extends Controller
         Dokter::create($request->validated());
 
         return redirect()
-            ->route('dokter.index')
+            ->route('admin.dokter.index')
             ->with('success', 'Data dokter berhasil ditambahkan.');
     }
 
@@ -42,7 +42,7 @@ class DokterController extends Controller
         $dokter->update($request->validated());
 
         return redirect()
-            ->route('dokter.index')
+            ->route('admin.dokter.index')
             ->with('success', 'Data dokter berhasil diperbarui.');
     }
 
@@ -50,7 +50,7 @@ class DokterController extends Controller
     {
         if ($dokter->pendaftaran()->exists()) {
             return redirect()
-                ->route('dokter.index')
+                ->route('admin.dokter.index')
                 ->with(
                     'error',
                     'Dokter tidak dapat dihapus karena masih memiliki data pendaftaran.'
@@ -60,7 +60,7 @@ class DokterController extends Controller
         $dokter->delete();
 
         return redirect()
-            ->route('dokter.index')
+            ->route('admin.dokter.index')
             ->with('success', 'Data dokter berhasil dihapus.');
     }
 }

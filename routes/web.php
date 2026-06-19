@@ -29,20 +29,20 @@ Route::controller(BerandaController::class)->group(function () {
     Route::get('/terms', 'terms')->name('terms');
 });
 
-Route::prefix('admin')->group(function () {
+Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/login', [LoginController::class, 'loginAdmin'])
-        ->name('admin.login');
+        ->name('login');
 
     Route::post('/login', [LoginController::class, 'authenticateAdmin'])
-        ->name('admin.login');
+        ->name('login');
 
     Route::post('/logout', [LoginController::class, 'logoutAdmin'])
-        ->name('admin.logout');
+        ->name('logout');
 
     Route::middleware(['petugas.auth'])->group(function () {
         Route::get('/dashboard', function () {
             return view('admin.dashboard');
-        })->name('admin.dashboard');
+        })->name('dashboard');
 
         Route::resource('petugas', PetugasController::class);
         Route::resource('pasien', PasienController::class);

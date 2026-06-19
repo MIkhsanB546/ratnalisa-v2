@@ -21,7 +21,7 @@
             @include('admin.components.alert')
 
             <div class="d-flex flex-wrap gap-2 mb-3">
-                <a href="{{ route('layanan.create') }}" class="btn btn-sm btn-primary">
+                <a href="{{ route('admin.layanan.create') }}" class="btn btn-sm btn-primary">
                     <i class="bi bi-plus-lg me-1" aria-hidden="true"></i>
                     Tambah Layanan
                 </a>
@@ -63,11 +63,12 @@
                                     </span>
                                 </td>
                                 <td>
-                                    <a href="{{ route('layanan.edit', $item) }}" class="btn btn-sm btn-warning">
+                                    <a href="{{ route('admin.layanan.edit', $item) }}" class="btn btn-sm btn-warning">
                                         <i class="bi bi-pencil-square" aria-hidden="true"></i>
                                         <span class="visually-hidden">Edit</span>
                                     </a>
-                                    <form action="{{ route('layanan.destroy', $item) }}" method="POST" class="d-inline"
+                                    <form action="{{ route('admin.layanan.destroy', $item) }}" method="POST"
+                                        class="d-inline"
                                         onsubmit="return confirm('Apakah Anda yakin ingin menghapus layanan ini?');">
                                         @csrf
                                         @method('DELETE')

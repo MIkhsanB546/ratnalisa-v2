@@ -23,6 +23,11 @@ class PasienRequest extends FormRequest
         $pasienId = $pasien instanceof Pasien ? $pasien->id_pasien : $pasien;
 
         return [
+            'nik' => [
+                'required',
+                'digits:16',
+                'unique:pasien,nik',
+            ],
             'nama' => ['required', 'string', 'max:100'],
             'email' => [
                 'required',
@@ -49,6 +54,9 @@ class PasienRequest extends FormRequest
     public function messages(): array
     {
         return [
+            'nik.required' => 'NIK wajib diisi.',
+            'nik.digits' => 'NIK harus terdiri dari 16 digit.',
+            'nik.unique' => 'NIK sudah digunakan.',
             'nama.required' => 'Nama wajib diisi.',
             'nama.max' => 'Nama maksimal 100 karakter.',
             'email.required' => 'Email wajib diisi.',

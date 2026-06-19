@@ -19,7 +19,7 @@
 
             <div class="card-tools">
 
-                <a href="{{ route('detail-pendaftaran.create', $pendaftaran) }}" class="btn btn-primary btn-sm">
+                <a href="{{ route('admin.detail-pendaftaran.create', $pendaftaran) }}" class="btn btn-primary btn-sm">
 
                     <i class="bi bi-plus"></i>
 

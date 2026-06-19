@@ -36,7 +36,7 @@ class KategoriLayananController extends Controller
         KategoriLayanan::create($data);
 
         return redirect()
-            ->route('kategori-layanan.index')
+            ->route('admin.kategori-layanan.index')
             ->with('success', 'Data kategori layanan berhasil ditambahkan.');
     }
 
@@ -65,7 +65,7 @@ class KategoriLayananController extends Controller
         $kategoriLayanan->update($data);
 
         return redirect()
-            ->route('kategori-layanan.index')
+            ->route('admin.kategori-layanan.index')
             ->with('success', 'Data kategori layanan berhasil diperbarui.');
     }
 
@@ -77,7 +77,7 @@ class KategoriLayananController extends Controller
         $kategoriLayanan->delete();
 
         return redirect()
-            ->route('kategori-layanan.index')
+            ->route('admin.kategori-layanan.index')
             ->with('success', 'Data kategori layanan berhasil dihapus.');
     }
 }

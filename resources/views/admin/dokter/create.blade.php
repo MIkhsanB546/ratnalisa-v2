@@ -10,7 +10,7 @@
     </li>
 
     <li class="breadcrumb-item">
-        <a href="{{ route('dokter.index') }}">
+        <a href="{{ route('admin.dokter.index') }}">
             Dokter
         </a>
     </li>
@@ -25,7 +25,7 @@
         <div class="card-header">
             <h3 class="card-title">Form Tambah Dokter</h3>
         </div>
-        <form action="{{ route('dokter.store') }}" method="POST">
+        <form action="{{ route('admin.dokter.store') }}" method="POST">
             @csrf
 
             <div class="card-body">
@@ -82,7 +82,7 @@
             </div>
 
             <div class="card-footer d-flex justify-content-end gap-2">
-                <a href="{{ route('dokter.index') }}" class="btn btn-secondary">
+                <a href="{{ route('admin.dokter.index') }}" class="btn btn-secondary">
                     Kembali
                 </a>
 

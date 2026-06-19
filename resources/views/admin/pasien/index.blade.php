@@ -21,7 +21,7 @@
             @include('admin.components.alert')
 
             <div class="d-flex flex-wrap gap-2 mb-3">
-                <a href="{{ route('pasien.create') }}" class="btn btn-sm btn-primary">
+                <a href="{{ route('admin.pasien.create') }}" class="btn btn-sm btn-primary">
                     <i class="bi bi-plus-lg me-1" aria-hidden="true"></i>
                     Tambah Pasien
                 </a>
@@ -44,6 +44,7 @@
                         <tr>
                             <th scope="col" style="width: 3rem">No</th>
                             <th scope="col">ID Pasien</th>
+                            <th scope="col">NIK</th>
                             <th scope="col">Nama</th>
                             <th scope="col">Email</th>
                             <th scope="col">No. HP</th>
@@ -58,6 +59,7 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $item->id_pasien }}</td>
+                                <td>{{ $item->nik }}</td>
                                 <td>{{ $item->nama }}</td>
                                 <td>{{ $item->email }}</td>
                                 <td>{{ $item->no_hp }}</td>
@@ -75,11 +77,12 @@
                                 </td>
                                 <td>{{ $item->alamat }}</td>
                                 <td>
-                                    <a href="{{ route('pasien.edit', $item) }}" class="btn btn-sm btn-warning">
+                                    <a href="{{ route('admin.pasien.edit', $item) }}" class="btn btn-sm btn-warning">
                                         <i class="bi bi-pencil-square" aria-hidden="true"></i>
                                         <span class="visually-hidden">Edit</span>
                                     </a>
-                                    <form action="{{ route('pasien.destroy', $item) }}" method="POST" class="d-inline"
+                                    <form action="{{ route('admin.pasien.destroy', $item) }}" method="POST"
+                                        class="d-inline"
                                         onsubmit="return confirm('Apakah Anda yakin ingin menghapus pasien ini?');">
                                         @csrf
                                         @method('DELETE')

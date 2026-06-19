@@ -46,7 +46,7 @@ class PendaftaranController extends Controller
         );
 
         return redirect()
-            ->route('pendaftaran.index')
+            ->route('admin.pendaftaran.index')
             ->with(
                 'success',
                 'Data pendaftaran berhasil ditambahkan.'
@@ -77,7 +77,7 @@ class PendaftaranController extends Controller
         );
 
         return redirect()
-            ->route('pendaftaran.index')
+            ->route('admin.pendaftaran.index')
             ->with(
                 'success',
                 'Data pendaftaran berhasil diperbarui.'
@@ -91,7 +91,7 @@ class PendaftaranController extends Controller
         if ($pendaftaran->pembayaran()->exists()) {
 
             return redirect()
-                ->route('pendaftaran.index')
+                ->route('admin.pendaftaran.index')
                 ->with(
                     'error',
                     'Pendaftaran tidak dapat dihapus karena sudah memiliki pembayaran.'
@@ -101,7 +101,7 @@ class PendaftaranController extends Controller
         $pendaftaran->delete();
 
         return redirect()
-            ->route('pendaftaran.index')
+            ->route('admin.pendaftaran.index')
             ->with(
                 'success',
                 'Data pendaftaran berhasil dihapus.'

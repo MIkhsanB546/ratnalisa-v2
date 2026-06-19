@@ -26,7 +26,7 @@
 
             <div class="d-flex flex-wrap gap-2 mb-3">
 
-                <a href="{{ route('pendaftaran.create') }}" class="btn btn-sm btn-primary">
+                <a href="{{ route('admin.pendaftaran.create') }}" class="btn btn-sm btn-primary">
 
                     <i class="bi bi-plus-lg me-1"></i>
                     Tambah Pendaftaran
@@ -140,16 +140,17 @@
                                 </td>
 
                                 <td>
-                                    <a href="{{ route('detail-pendaftaran.index', $item) }}"class="btn btn-sm btn-info">
+                                    <a
+                                        href="{{ route('admin.detail-pendaftaran.index', $item) }}"class="btn btn-sm btn-info">
                                         <i class="bi bi-list-ul"></i>
                                     </a>
 
-                                    <a href="{{ route('pendaftaran.edit', $item) }}" class="btn btn-sm btn-warning">
+                                    <a href="{{ route('admin.pendaftaran.edit', $item) }}" class="btn btn-sm btn-warning">
                                         <i class="bi bi-pencil-square"></i>
                                     </a>
 
-                                    <form action="{{ route('pendaftaran.destroy', $item) }}" method="POST" class="d-inline"
-                                        onsubmit="return confirm('Yakin ingin menghapus data ini?');">
+                                    <form action="{{ route('admin.pendaftaran.destroy', $item) }}" method="POST"
+                                        class="d-inline" onsubmit="return confirm('Yakin ingin menghapus data ini?');">
                                         @csrf
                                         @method('DELETE')
 

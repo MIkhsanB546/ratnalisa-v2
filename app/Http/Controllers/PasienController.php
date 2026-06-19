@@ -38,7 +38,7 @@ class PasienController extends Controller
         Pasien::create($data);
 
         return redirect()
-            ->route('pasien.index')
+            ->route('admin.pasien.index')
             ->with('success', 'Data pasien berhasil ditambahkan.');
     }
 
@@ -74,7 +74,7 @@ class PasienController extends Controller
         $pasien->update($data);
 
         return redirect()
-            ->route('pasien.index')
+            ->route('admin.pasien.index')
             ->with('success', 'Data pasien berhasil diperbarui.');
     }
 
@@ -86,7 +86,7 @@ class PasienController extends Controller
         $pasien->delete();
 
         return redirect()
-            ->route('pasien.index')
+            ->route('admin.pasien.index')
             ->with('success', 'Data pasien berhasil dihapus.');
     }
 }
