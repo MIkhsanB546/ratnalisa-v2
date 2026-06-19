@@ -99,12 +99,7 @@
                             <td>
 
 
-                                <form method="POST"
-                                    action="{{ route(
-                                        'detail-pendaftaran.destroy',
-                                    
-                                        $detail,
-                                    ) }}">
+                                <form method="POST" action="{{ route('admin.detail-pendaftaran.destroy', $detail) }}">
 
                                     @csrf
 
