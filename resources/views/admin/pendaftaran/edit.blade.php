@@ -58,7 +58,7 @@
                             Pasien
                         </label>
 
-                        <select name="id_pasien" class="form-select @error('id_pasien') is-invalid @enderror" disabled>
+                        <select name="id_pasien" class="form-select @error('id_pasien') is-invalid @enderror">
 
                             <option value="">
                                 Pilih Pasien

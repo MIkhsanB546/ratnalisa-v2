@@ -8,6 +8,7 @@ use App\Models\Pasien;
 use App\Models\Pendaftaran;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class PendaftaranController extends Controller
 {
@@ -51,6 +52,21 @@ class PendaftaranController extends Controller
                 'success',
                 'Data pendaftaran berhasil ditambahkan.'
             );
+    }
+
+    public function show(Pendaftaran $pendaftaran)
+    {
+        $pendaftaran->load([
+            'pasien',
+            'dokter',
+            'detailPendaftaran.layanan',
+            'pembayaran'
+        ]);
+
+        return view(
+            'admin.pendaftaran.show',
+            compact('pendaftaran')
+        );
     }
 
     public function edit(

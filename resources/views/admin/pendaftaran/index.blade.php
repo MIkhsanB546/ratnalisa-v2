@@ -44,11 +44,11 @@
                     Export JSON
                 </button>
 
-                <button id="print-table" type="button" class="btn btn-sm btn-outline-secondary">
+                {{-- <a href="{{ route('admin.pendaftaran.pdf') }}" class="btn btn-sm btn-outline-secondary">
 
                     <i class="bi bi-printer me-1"></i>
-                    Print
-                </button>
+                    PDF
+                </a> --}}
 
             </div>
 
@@ -140,6 +140,11 @@
                                 </td>
 
                                 <td>
+                                    <a href="{{ route('admin.pendaftaran.show', $item) }}" class="btn btn-sm btn-info">
+
+                                        <i class="bi bi-eye"></i>
+
+                                    </a>
                                     <a
                                         href="{{ route('admin.detail-pendaftaran.index', $item) }}"class="btn btn-sm btn-info">
                                         <i class="bi bi-list-ul"></i>
@@ -240,9 +245,9 @@
                         'application/json;charset=utf-8;');
                 });
 
-                printButton?.addEventListener('click', () => {
-                    window.print();
-                });
+                // printButton?.addEventListener('click', () => {
+                //     window.print();
+                // });
             });
         </script>
     @endpush
