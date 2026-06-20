@@ -146,10 +146,6 @@
                                         <i class="bi bi-eye"></i>
 
                                     </a>
-                                    <a
-                                        href="{{ route('admin.detail-pendaftaran.index', $item) }}"class="btn btn-sm btn-info">
-                                        <i class="bi bi-list-ul"></i>
-                                    </a>
 
                                     <a href="{{ route('admin.pendaftaran.edit', $item) }}" class="btn btn-sm btn-warning">
                                         <i class="bi bi-pencil-square"></i>
