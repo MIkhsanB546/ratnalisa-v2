@@ -25,7 +25,7 @@ class DetailPendaftaranController extends Controller
 
 
         return view(
-            'admin.detail-pendaftaran.index',
+            'admin.detail-pendaftaran.show',
             compact(
                 'pendaftaran',
                 'details'
@@ -106,7 +106,7 @@ class DetailPendaftaranController extends Controller
 
             ->route(
 
-                'admin.detail-pendaftaran.index',
+                'admin.pendaftaran.show',
 
                 $pendaftaran
 
@@ -163,7 +163,7 @@ class DetailPendaftaranController extends Controller
 
             ->route(
 
-                'admin.detail-pendaftaran.index',
+                'admin.pendaftaran.index',
 
                 $id
 
