@@ -106,7 +106,7 @@ class DetailPendaftaranController extends Controller
 
             ->route(
 
-                'detail-pendaftaran.index',
+                'admin.detail-pendaftaran.index',
 
                 $pendaftaran
 
@@ -163,7 +163,7 @@ class DetailPendaftaranController extends Controller
 
             ->route(
 
-                'detail-pendaftaran.index',
+                'admin.detail-pendaftaran.index',
 
                 $id
 

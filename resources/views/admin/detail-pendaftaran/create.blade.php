@@ -23,11 +23,12 @@
 
 
 
-        <form method="POST" action="{{ route(
-            'detail-pendaftaran.store',
-        
-            $pendaftaran,
-        ) }}">
+        <form method="POST"
+            action="{{ route(
+                'admin.detail-pendaftaran.store',
+            
+                $pendaftaran,
+            ) }}">
 
             @csrf
 
@@ -108,10 +109,11 @@
 
 
                 <a href="{{ route(
-                    'detail-pendaftaran.index',
+                    'admin.detail-pendaftaran.index',
                 
                     $pendaftaran,
-                ) }}" class="btn btn-secondary">
+                ) }}"
+                    class="btn btn-secondary">
 
 
                     Kembali
