@@ -35,7 +35,7 @@
 
             <div>
 
-                <a href="#" class="btn btn-sm btn-danger">
+                <a href="{{ route('admin.pendaftaran.nota.download', $pendaftaran) }}" class="btn btn-sm btn-danger">
 
                     PDF
 

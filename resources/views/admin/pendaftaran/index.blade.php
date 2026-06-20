@@ -44,11 +44,12 @@
                     Export JSON
                 </button>
 
-                {{-- <a href="{{ route('admin.pendaftaran.pdf') }}" class="btn btn-sm btn-outline-secondary">
+                <button id="export-nota-pdf" type="button" class="btn btn-sm btn-outline-secondary">
 
                     <i class="bi bi-printer me-1"></i>
-                    PDF
-                </a> --}}
+                    PDF Nota
+
+                </button>
 
             </div>
 
@@ -187,7 +188,8 @@
                 const filter = document.getElementById('table-filter');
                 const csvButton = document.getElementById('export-csv');
                 const jsonButton = document.getElementById('export-json');
-                const printButton = document.getElementById('print-table');
+                const exportNotaPdfButton = document.getElementById('export-nota-pdf');
+
 
                 if (!table) {
                     return;
@@ -217,6 +219,14 @@
                     URL.revokeObjectURL(url);
                 };
 
+                const getVisiblePendaftaranIds = () => {
+                    // ID ada di kolom ke-2 (No=0, ID=1) pada tabel
+                    return Array.from(table.querySelectorAll('tbody tr'))
+                        .filter((row) => row.style.display !== 'none' && row.querySelectorAll('td').length > 1)
+                        .map((row) => row.querySelectorAll('td')[1]?.textContent?.trim())
+                        .filter(Boolean);
+                };
+
                 filter?.addEventListener('input', (event) => {
                     const keyword = event.target.value.trim().toLowerCase();
 
@@ -243,6 +253,20 @@
 
                     downloadFile('data-pendaftaran.json', JSON.stringify(data, null, 2),
                         'application/json;charset=utf-8;');
+                });
+
+                exportNotaPdfButton?.addEventListener('click', () => {
+                    const ids = getVisiblePendaftaranIds();
+
+                    if (!ids.length) {
+                        alert('Tidak ada data yang dipilih untuk PDF.');
+                        return;
+                    }
+
+                    const params = new URLSearchParams();
+                    ids.forEach((id) => params.append('ids[]', id));
+
+                    window.location.href = `{{ route('admin.pendaftaran.nota.export') }}?` + params.toString();
                 });
 
                 // printButton?.addEventListener('click', () => {

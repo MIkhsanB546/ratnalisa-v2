@@ -49,7 +49,22 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('kategori-layanan', KategoriLayananController::class);
         Route::resource('layanan', LayananController::class);
         Route::resource('dokter', DokterController::class);
+
+        // Pendaftaran
         Route::resource('pendaftaran', PendaftaranController::class);
+
+        // Nota PDF
+        Route::get(
+            'pendaftaran/{pendaftaran}/nota',
+            [PendaftaranController::class, 'downloadNotaPdf']
+        )->name('pendaftaran.nota.download');
+
+        Route::get(
+            'pendaftaran/nota/export',
+            [PendaftaranController::class, 'exportFilteredNotasPdf']
+        )->name('pendaftaran.nota.export');
+
+        // Detail Pendaftaran
         Route::get(
             'pendaftaran/{pendaftaran}/detail',
             [DetailPendaftaranController::class, 'index']

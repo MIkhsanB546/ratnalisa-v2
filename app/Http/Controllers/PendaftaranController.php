@@ -17,15 +17,11 @@ class PendaftaranController extends Controller
         $pendaftaran = Pendaftaran::with([
             'pasien',
             'dokter'
-        ])
-            ->latest()
-            ->get();
+        ])->latest()->get();
 
-        return view(
-            'admin.pendaftaran.index',
-            compact('pendaftaran')
-        );
+        return view('admin.pendaftaran.index', compact('pendaftaran'));
     }
+
 
     public function create(): View
     {
@@ -105,7 +101,6 @@ class PendaftaranController extends Controller
     ): RedirectResponse {
 
         if ($pendaftaran->pembayaran()->exists()) {
-
             return redirect()
                 ->route('admin.pendaftaran.index')
                 ->with(
@@ -122,5 +117,46 @@ class PendaftaranController extends Controller
                 'success',
                 'Data pendaftaran berhasil dihapus.'
             );
+    }
+
+    public function downloadNotaPdf(Pendaftaran $pendaftaran)
+    {
+        $pendaftaran->load([
+            'pasien',
+            'dokter',
+            'detailPendaftaran.layanan',
+            'pembayaran',
+        ]);
+
+        $pdf = Pdf::loadView('admin.pendaftaran.nota', [
+            'pendaftaran' => $pendaftaran,
+        ]);
+
+        return $pdf->download('nota-pendaftaran-' . $pendaftaran->id_pendaftaran . '.pdf');
+    }
+
+    public function exportFilteredNotasPdf(
+        \Illuminate\Http\Request $request
+    ) {
+        $ids = $request->input('ids', []);
+
+        $ids = array_values(array_filter(array_map('intval', (array) $ids)));
+
+        if (count($ids) === 0) {
+            return back()->with('error', 'Tidak ada data yang dipilih untuk PDF.');
+        }
+
+        $pendaftaranList = Pendaftaran::with([
+            'pasien',
+            'dokter',
+            'detailPendaftaran.layanan',
+            'pembayaran'
+        ])->whereIn('id', $ids)->latest()->get();
+
+        $pdf = Pdf::loadView('admin.pendaftaran.nota-collection', [
+            'pendaftaranList' => $pendaftaranList,
+        ]);
+
+        return $pdf->download('nota-pendaftaran-' . date('Y-m-d_H-i-s') . '.pdf');
     }
 }
