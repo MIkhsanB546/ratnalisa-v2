@@ -4,63 +4,127 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Pembayaran;
+use App\Models\Pendaftaran;
 use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Contracts\View\View;
 
 class PembayaranController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
+    public function show(
+        Pendaftaran $pendaftaran
+    ): View {
+
+        $pendaftaran->load('pembayaran');
+
+
+        return view(
+
+            'admin.pembayaran.show',
+
+            compact(
+
+                'pendaftaran'
+
+            )
+
+        );
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+
+
+    public function store(
+
+        Request $request,
+
+        Pendaftaran $pendaftaran
+
+    ): RedirectResponse {
+
+        $request->validate([
+
+            'metode_bayar' => [
+                'required'
+            ]
+
+        ]);
+
+
+        $total = $pendaftaran
+            ->detailPendaftaran
+            ->sum('subtotal');
+
+
+
+        Pembayaran::create([
+
+            'id_pendaftaran'
+            => $pendaftaran->id_pendaftaran,
+
+            'tanggal_bayar'
+            => now(),
+
+            'metode_bayar'
+            => $request->metode_bayar,
+
+            'total_bayar'
+            => $total,
+
+            'status_bayar'
+            => 'belum_lunas'
+
+        ]);
+
+
+        return back()
+
+            ->with(
+
+                'success',
+
+                'Pembayaran berhasil dibuat.'
+
+            );
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Pembayaran $pembayaran)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Pembayaran $pembayaran)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Pembayaran $pembayaran)
-    {
-        //
-    }
+    public function update(
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Pembayaran $pembayaran)
-    {
-        //
+        Request $request,
+
+        Pendaftaran $pendaftaran
+
+    ): RedirectResponse {
+
+        $request->validate([
+
+            'status_bayar' => [
+                'required'
+            ]
+
+        ]);
+
+
+        $pendaftaran
+            ->pembayaran
+            ->update([
+
+                'status_bayar'
+                => $request->status_bayar
+
+            ]);
+
+
+        return back()
+
+            ->with(
+
+                'success',
+
+                'Status pembayaran berhasil diperbarui.'
+
+            );
     }
 }

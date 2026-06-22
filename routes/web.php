@@ -88,4 +88,27 @@ Route::prefix('admin')->name('admin.')->group(function () {
             [DetailPendaftaranController::class, 'destroy']
         )->name('detail-pendaftaran.destroy');
     });
+
+    // Pembayaran routes
+    Route::prefix('pendaftaran/{pendaftaran}')
+        ->name('pendaftaran.')
+        ->group(function () {
+
+            Route::get(
+                'pembayaran',
+                [PembayaranController::class, 'show']
+            )->name('pembayaran.show');
+
+
+            Route::post(
+                'pembayaran',
+                [PembayaranController::class, 'store']
+            )->name('pembayaran.store');
+
+
+            Route::put(
+                'pembayaran',
+                [PembayaranController::class, 'update']
+            )->name('pembayaran.update');
+        });
 });

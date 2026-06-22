@@ -17,7 +17,7 @@
     </li>
 @endsection
 @section('content')
-    <div class="card">
+    <div class="card mb-3">
         <div class="card-header">
             <h3 class="card-title">
                 Pendaftaran {{ $pendaftaran->id_pendaftaran }}
@@ -130,42 +130,45 @@
                     </table>
                 </div>
             </div>
-            <hr>
-
-            {{-- Detail Pemeriksaan --}}
-            <div class="d-flex justify-content-between mb-3">
-                <h5>
-                    Detail Pemeriksaan
-                </h5>
-                @if ($pendaftaran->status != 'selesai')
+        </div>
+    </div>
+    <div class="card mb-3">
+        <div class="card-header">
+            <h3 class="card-title">
+                Detail Pemeriksaan
+            </h3>
+            @if ($pendaftaran->status != 'selesai')
+                <div class="card-tools">
                     <a href="{{ route('admin.detail-pendaftaran.create', $pendaftaran) }}" class="btn btn-primary btn-sm">
-                        <i class="bi bi-plus"></i>
                         Tambah Layanan
                     </a>
-                @endif
-            </div>
+                </div>
+            @endif
+        </div>
+        <div class="card-body">
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th>
+                        <th width="60">
                             No
                         </th>
                         <th>
                             Pemeriksaan
                         </th>
-                        <th>
+                        <th width="180">
                             Harga
                         </th>
+                        @if ($pendaftaran->status != 'selesai')
+                            <th width="80">
+                                Aksi
+                            </th>
+                        @endif
                     </tr>
                 </thead>
                 <tbody>
-                    @php
-                        $total = 0;
-                    @endphp
-                    @foreach ($pendaftaran->detailPendaftaran as $detail)
-                        @php
-                            $total += $detail->subtotal;
-                        @endphp
+                    @php($total = 0)
+                    @forelse($pendaftaran->detailPendaftaran as $detail)
+                        @php($total += $detail->subtotal)
                         <tr>
                             <td>
                                 {{ $loop->iteration }}
@@ -174,22 +177,27 @@
                                 {{ $detail->layanan->nama_layanan }}
                             </td>
                             <td>
-                                Rp
-                                {{ number_format($detail->subtotal, 0, ',', '.') }}
+                                Rp {{ number_format($detail->subtotal, 0, ',', '.') }}
                             </td>
                             @if ($pendaftaran->status != 'selesai')
                                 <td>
                                     <form method="POST" action="{{ route('admin.detail-pendaftaran.destroy', $detail) }}">
                                         @csrf
                                         @method('DELETE')
-                                        <button class="btn btn-danger btn-sm" onclick="return confirm('Hapus layanan?')">
+                                        <button class="btn btn-danger btn-sm">
                                             <i class="bi bi-trash"></i>
                                         </button>
                                     </form>
                                 </td>
                             @endif
                         </tr>
-                    @endforeach
+                    @empty
+                        <tr>
+                            <td colspan="4">
+                                Belum ada layanan
+                            </td>
+                        </tr>
+                    @endforelse
                 </tbody>
                 <tfoot>
                     <tr>
@@ -197,66 +205,105 @@
                             Total
                         </th>
                         <th>
-                            Rp
-                            {{ number_format($total, 0, ',', '.') }}
+                            Rp {{ number_format($total, 0, ',', '.') }}
                         </th>
+                        @if ($pendaftaran->status != 'selesai')
+                            <th></th>
+                        @endif
                     </tr>
                 </tfoot>
             </table>
-            <hr>
-
-            {{-- Pembayaran --}}
-            <div class="d-flex justify-content-between mb-3">
-                <h5>
-                    Pembayaran
-                </h5>
-                @if (!$pendaftaran->pembayaran || $pendaftaran->pembayaran->status_bayar != 'lunas')
-                    <a href="{{ route('admin.pembayaran.create', $pendaftaran) }}" class="btn btn-success btn-sm">
-                        <i class="bi bi-plus"></i>
-                        Bayar Sekarang
-                    </a>
-                @endif
-            </div>
-            <table class="table table-borderless">
-                <tr>
-                    <th width="180">
-                        Metode
-                    </th>
-                    <td>
-                        :
-                        {{ $pendaftaran->pembayaran ? strtoupper($pendaftaran->pembayaran->metode_bayar) : '' }}
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        Status
-                    </th>
-                    <td>
-                        :
-                        @if ($pendaftaran->pembayaran && $pendaftaran->pembayaran->status_bayar == 'lunas')
-                            LUNAS
-                        @else
-                            BELUM LUNAS
-                        @endif
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        Total Bayar
-                    </th>
-                    <td>
-                        :
-                        @if ($pendaftaran->pembayaran && $pendaftaran->pembayaran->status_bayar == 'lunas')
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <h5 class="mb-0 card-title">
+                Pembayaran
+            </h5>
+        </div>
+        <div class="card-body">
+            @if (!$pendaftaran->pembayaran)
+                <form method="POST" action="{{ route('admin.pendaftaran.pembayaran.store', $pendaftaran) }}">
+                    @csrf
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label class="form-label">
+                                Metode Pembayaran
+                            </label>
+                            <select name="metode_bayar" class="form-select">
+                                <option value="tunai">
+                                    Tunai
+                                </option>
+                                <option value="transfer">
+                                    Transfer
+                                </option>
+                                <option value="qris">
+                                    QRIS
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-md-3 align-self-end">
+                            <button class="btn btn-success">
+                                Buat Pembayaran
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            @else
+                <table class="table table-borderless">
+                    <tr>
+                        <th width="200">
+                            Metode
+                        </th>
+                        <td>
+                            {{ strtoupper($pendaftaran->pembayaran->metode_bayar) }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            Status
+                        </th>
+                        <td>
+                            @if ($pendaftaran->pembayaran->status_bayar == 'lunas')
+                                <span class="badge bg-success">
+                                    LUNAS
+                                </span>
+                            @else
+                                <span class="badge bg-warning">
+                                    BELUM LUNAS
+                                </span>
+                            @endif
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            Total
+                        </th>
+                        <td>
                             Rp
                             {{ number_format($pendaftaran->pembayaran->total_bayar, 0, ',', '.') }}
-                        @else
-                            {{-- belum ada pembayaran: total bayar kosong --}}
-                            {{ '' }}
-                        @endif
-                    </td>
-                </tr>
-            </table>
-
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            Tanggal Bayar
+                        </th>
+                        <td>
+                            {{ $pendaftaran->pembayaran->tanggal_bayar }}
+                        </td>
+                    </tr>
+                </table>
+                @if ($pendaftaran->pembayaran->status_bayar != 'lunas')
+                    <form method="POST" action="{{ route('admin.pendaftaran.pembayaran.update', $pendaftaran) }}">
+                        @csrf
+                        @method('PUT')
+                        <input type="hidden" name="status_bayar" value="lunas">
+                        <button class="btn btn-success">
+                            Tandai Lunas
+                        </button>
+                    </form>
+                @endif
+            @endif
         </div>
     </div>
 @endsection
