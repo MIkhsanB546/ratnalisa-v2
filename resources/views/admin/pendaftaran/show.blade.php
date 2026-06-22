@@ -29,6 +29,7 @@
             </div>
         </div>
         <div class="card-body">
+            {{-- Detail pendaftaran --}}
             <div class="row mb-4">
                 <div class="col-md-6">
                     <table class="table table-borderless">
@@ -130,7 +131,9 @@
                 </div>
             </div>
             <hr>
-            <div class="d-flex justify-content-between">
+
+            {{-- Detail Pemeriksaan --}}
+            <div class="d-flex justify-content-between mb-3">
                 <h5>
                     Detail Pemeriksaan
                 </h5>
@@ -201,9 +204,19 @@
                 </tfoot>
             </table>
             <hr>
-            <h5>
-                Pembayaran
-            </h5>
+
+            {{-- Pembayaran --}}
+            <div class="d-flex justify-content-between mb-3">
+                <h5>
+                    Pembayaran
+                </h5>
+                @if (!$pendaftaran->pembayaran || $pendaftaran->pembayaran->status_bayar != 'lunas')
+                    <a href="{{ route('admin.pembayaran.create', $pendaftaran) }}" class="btn btn-success btn-sm">
+                        <i class="bi bi-plus"></i>
+                        Bayar Sekarang
+                    </a>
+                @endif
+            </div>
             <table class="table table-borderless">
                 <tr>
                     <th width="180">

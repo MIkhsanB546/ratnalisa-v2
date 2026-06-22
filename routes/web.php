@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\DokterController;
 use App\Http\Controllers\Admin\PendaftaranController;
 use App\Http\Controllers\Admin\DetailPendaftaranController;
+use App\Http\Controllers\Admin\PembayaranController;
 
 Route::get('/login', function () {
     return view('auth.login');
@@ -29,6 +30,7 @@ Route::controller(BerandaController::class)->group(function () {
     Route::get('/terms', 'terms')->name('terms');
 });
 
+// Admin routes
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/login', [LoginController::class, 'loginAdmin'])
         ->name('login');
@@ -49,6 +51,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('kategori-layanan', KategoriLayananController::class);
         Route::resource('layanan', LayananController::class);
         Route::resource('dokter', DokterController::class);
+        Route::resource('pembayaran', PembayaranController::class);
 
         // Pendaftaran
         Route::resource('pendaftaran', PendaftaranController::class);
