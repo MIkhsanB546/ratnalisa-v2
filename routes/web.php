@@ -2,14 +2,14 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BerandaController;
-use App\Http\Controllers\PetugasController;
-use App\Http\Controllers\PasienController;
-use App\Http\Controllers\KategoriLayananController;
-use App\Http\Controllers\LayananController;
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\DokterController;
-use App\Http\Controllers\PendaftaranController;
-use App\Http\Controllers\DetailPendaftaranController;
+use App\Http\Controllers\Admin\PetugasController;
+use App\Http\Controllers\Admin\PasienController;
+use App\Http\Controllers\Admin\KategoriLayananController;
+use App\Http\Controllers\Admin\LayananController;
+use App\Http\Controllers\Admin\LoginController;
+use App\Http\Controllers\Admin\DokterController;
+use App\Http\Controllers\Admin\PendaftaranController;
+use App\Http\Controllers\Admin\DetailPendaftaranController;
 
 Route::get('/login', function () {
     return view('auth.login');

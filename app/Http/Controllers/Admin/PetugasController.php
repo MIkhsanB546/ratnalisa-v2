@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\Petugas;
 use App\Http\Requests\PetugasRequest;
 use Illuminate\Http\RedirectResponse;

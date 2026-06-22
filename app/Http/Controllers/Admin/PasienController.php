@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\PasienRequest;
 use App\Models\Pasien;
 use Illuminate\Http\RedirectResponse;
